@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - UX-Cash</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <h2>Bienvenido a UX-Cash</h2>
+        <div id="userInfo"></div>
+        <button onclick="logout()">Salir</button>
+    </div>
+
+    <script>
+        const usuarioAutenticado = JSON.parse(sessionStorage.getItem("usuarioAutenticado"));
+        const userInfoDiv = document.getElementById("userInfo");
+
+        if (usuarioAutenticado) {
+            userInfoDiv.innerHTML = `
+                <p><strong>Nombre:</strong> ${usuarioAutenticado.nombre}</p>
+                <p><strong>Apellido:</strong> ${usuarioAutenticado.apellido}</p>
+                <p><strong>Teléfono:</strong> ${usuarioAutenticado.telefono}</p>
+                <p><strong>Correo:</strong> ${usuarioAutenticado.correo}</p>
+                <p><strong>Acepta Notificaciones:</strong> ${usuarioAutenticado.aceptaNotificaciones ? 'Sí' : 'No'}</p>
+            `;
+        } else {
+            window.location.href = "index.html"; 
+        }
+
+        function logout() {
+            sessionStorage.removeItem("usuarioAutenticado");
+            window.location.href = "index.html"; 
+        }
+    </script>
+</body>
+</html>
